@@ -1,4 +1,4 @@
-# 轻记账 (LiteBook)
+# LiteBook
 
 > 一个简单、优雅的个人记账应用
 

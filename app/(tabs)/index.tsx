@@ -1,7 +1,14 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, FlatList } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { LineChart } from 'react-native-chart-kit';
 import { Dimensions } from 'react-native';
+
+const records = [
+  { id: '1', amount: '$250', date: '2023-01-15', description: 'Groceries' },
+  { id: '2', amount: '$120', date: '2023-01-18', description: 'Utilities' },
+  { id: '3', amount: '$75', date: '2023-01-20', description: 'Transport' },
+  // 添加更多记录
+];
 
 export default function HomeScreen() {
   return (
@@ -59,6 +66,21 @@ export default function HomeScreen() {
           <Text style={styles.messageSubtitle}>Your capital has a positive trend.</Text>
         </View>
       </View>
+
+      <FlatList
+        data={records}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.recordItem}>
+            <Text style={styles.recordAmount}>{item.amount}</Text>
+            <View>
+              <Text style={styles.recordDescription}>{item.description}</Text>
+              <Text style={styles.recordDate}>{item.date}</Text>
+            </View>
+          </View>
+        )}
+        style={styles.recordList}
+      />
     </ScrollView>
   );
 }
@@ -68,6 +90,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     padding: 16,
+    paddingHorizontal: 24,
   },
   header: {
     flexDirection: 'row',
@@ -153,5 +176,28 @@ const styles = StyleSheet.create({
   messageSubtitle: {
     color: '#999',
     marginTop: 4,
+  },
+  recordList: {
+    marginTop: 24,
+  },
+  recordItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    padding: 16,
+    backgroundColor: '#f9f9f9',
+    borderRadius: 8,
+    marginBottom: 8,
+  },
+  recordAmount: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  recordDescription: {
+    fontSize: 14,
+    color: '#666',
+  },
+  recordDate: {
+    fontSize: 12,
+    color: '#999',
   },
 });
